@@ -1,0 +1,32 @@
+{% extends "layout.html" %}
+{% block content %}
+
+<div class="container">
+    <nav class="navbar navbar-default">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#gnavi">
+                <span class="sr-only"/>
+                <span class="icon_bar"/>
+                <span class="icon_bar"/>
+                <span class="icon_bar"/>
+            </button>
+        </div>
+        <div id="gnavi" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a href="buys">buys</a></li>
+                <li><a href="sells">sells</a></li>
+                <li><a href="send">send</a></li>
+                <li><a href="deposit_bitcoin">deposit_bitcoin</a></li>
+                <li><a href="card_payments">card_payments</a></li>
+                <li><a href="orders">orders</a></li>
+            </ul>
+        </div>
+    </nav>
+    <div class="row">
+        <div class="col-md-12">
+            {{ table_here }}
+        </div>
+    </div>
+</div>
+
+{% endblock %}
