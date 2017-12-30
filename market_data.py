@@ -70,14 +70,5 @@ def btc_price_query_day_close(at):
 
 
 def btc_price_at(at):
-    # 60sec query first
-    res_60 = btc_price_query_60(at)
-    if res_60:
-        return res_60['close_price']
-    else:
-        res_1h = btc_price_query_1h(at)
-        if res_1h:
-            return res_1h['close']
-        else:
-            res_day = btc_price_query_day_close(at)
-            return res_day
+    res_day = btc_price_query_day_close(at)
+    return res_day
