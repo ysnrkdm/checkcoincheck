@@ -1,18 +1,12 @@
-import re
-
-import sys
-import mechanize
-
 from pytz import timezone
-from dateutil import parser
 from datetime import timedelta
 from datetime import datetime
 
 import sqlite3
-import pandas as pd
 
-import coincheck
 import requests
+
+EPOCH = datetime(1970, 1, 1, tzinfo=timezone('utc'))
 
 
 def btc_price_query_60(at, delta=3600, range=60):
@@ -49,7 +43,7 @@ def btc_price_query_1h(at):
         data = response['Data']
         last_data = data[-1]
         last_data_time = last_data['time']
-        last_data_time_adj = datetime.fromtimestamp(last_data_time, tz=timezone('UTC'))
+        last_data_time_adj = datetime.utcfromtimestamp(last_data_time)
         last_data['time'] = last_data_time_adj
         print last_data
         return last_data
@@ -58,7 +52,8 @@ def btc_price_query_1h(at):
         return None
 
 def btc_price_query_day_close(at):
-    at_unixtime = int(at.strftime('%s'))
+    # print '%s - %s' % (at.strftime('%Y-%m-%d %H:%M:%S %Z'), EPOCH.strftime('%Y-%m-%d %H:%M:%S %Z'))
+    at_unixtime = (at - EPOCH).total_seconds()
     url = 'https://min-api.cryptocompare.com/data/pricehistorical?fsym=BTC&tsyms=JPY&ts=%s&markets=coincheck&extraParams=checkcoincheck' % (str(at_unixtime))
     # print url
     response = requests.get(url)
@@ -70,5 +65,6 @@ def btc_price_query_day_close(at):
 
 
 def btc_price_at(at):
+    # at must be timezone aware
     res_day = btc_price_query_day_close(at)
     return res_day
