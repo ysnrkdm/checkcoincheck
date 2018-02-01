@@ -26,6 +26,7 @@ wheels/
 *.egg
 bin/
 local/
+include/
 
 .idea/
 *.iml
@@ -107,3 +108,7 @@ ENV/
 
 *.csv
 *.db
+
+.DS_Store
+pip-selfcheck.json
+
