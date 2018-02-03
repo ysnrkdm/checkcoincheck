@@ -61,7 +61,8 @@ def download_files():
 
 
 def fetch_a_file_and_store_db(filename, prefix='cc_'):
-    df = pd.read_csv(CSV_FOLDER + CSV_FILE_PREFIX + filename)
+    df_raw = pd.read_csv(CSV_FOLDER + CSV_FILE_PREFIX + filename)
+    df = df_raw.rename(columns=lambda s: s.replace(" ", "_").lower())
     dbname = COINCHECK_DB
     tablename = prefix + re.findall('(.*?)\.csv', filename)[0]
     conn = sqlite3.connect(dbname)
@@ -86,5 +87,5 @@ def store_data_to_db():
     fetch_a_file_and_store_db('orders.csv')
 
 
-download_files()
+# download_files()
 store_data_to_db()

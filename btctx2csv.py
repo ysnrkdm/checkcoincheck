@@ -69,9 +69,10 @@ def csv_for_wallet_address(wallet_address, limit=50):
             rate = market_data.btc_price_at(time_utc)
             rr['jpy_per_btc_at_tx_time'] = rate
             rr['in_jpy_at_tx_time'] = rate * rr['value_satoshi'] / 100000000
-            print '%s\t%s\t%s\t%s\t%s\t%s\n' % (rr['time'], str(rr['value_satoshi']), 
+            print '%s\t%s\t%s\t%s\t%s\t%s' % (rr['time'], str(rr['value_satoshi']), 
                 str(rr['output']), str(rr['input']),
                 str(rr['jpy_per_btc_at_tx_time']), str(rr['in_jpy_at_tx_time']))
+            sys.stdout.flush()
             fetched += 1
         offset += limit
     print 'Fetched %d entries' % fetched
