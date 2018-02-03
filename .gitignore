@@ -112,3 +112,5 @@ ENV/
 .DS_Store
 pip-selfcheck.json
 
+*.db-shm
+*.db-wal
